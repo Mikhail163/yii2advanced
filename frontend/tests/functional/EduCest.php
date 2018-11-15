@@ -7,8 +7,21 @@ class EduCest
     {
     }
 
-    // tests
-    public function tryToTest(FunctionalTester $I)
+    /**
+     * @param @dataProvider pageProvider
+     */
+    public function tryToTest(FunctionalTester $I, \Codeception\Example $data)
     {
+        $I->amOnPage($data['url']);
+        $I->see($data['h1'], 'h1');
+    }
+    
+    protected function pageProvider()
+    {
+        return [
+            ['url'=>'site/about', 'h1'=>'About'],
+            ['url'=>'site/contact', 'h1'=>'Contact'],
+            ['url'=>'site/signup', 'h1'=>'Signup'],
+        ];
     }
 }
