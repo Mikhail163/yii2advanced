@@ -1,4 +1,4 @@
-const conn = new WebSocket('ws://www.server.lan:8080');
+const conn = new WebSocket('ws://' + wsChatHost + ':' + wsChatPort);
 
 const btn = document.getElementById('chat_button_send');
 const inp = document.getElementById('chat_new_message');

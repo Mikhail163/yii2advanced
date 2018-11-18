@@ -6,9 +6,13 @@ use Yii;
 
 class Chat extends \yii\bootstrap\Widget
 {
+    public $port = 8080;
+    public $host = 'www.server.lan';
+    
     public function run()
     {
-        //$this->view->registerJsFile('/js/chat.js');
+        $this->view->registerJsVar('wsChatPort', $this->port);
+        $this->view->registerJsVar('wsChatHost', $this->host);
         ChatAsset::register($this->view);
         return $this->render('chat');
     }
