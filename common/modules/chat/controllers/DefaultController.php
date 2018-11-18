@@ -29,6 +29,11 @@ class DefaultController extends Controller
             );
         
         echo 'start';
+        
+        $server->loop->addPeriodicTimer(2, function() {
+            echo date('H:i:s').PHP_EOL;
+        });
+        
         $server->run();
         echo 'end';
     }
