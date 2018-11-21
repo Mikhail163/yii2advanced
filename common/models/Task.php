@@ -71,7 +71,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getCreatorBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'creator_by']);
+        return $this->hasOne(User::className(), ['user_id' => 'creator_by']);
     }
 
     /**
@@ -79,7 +79,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getUpdaterBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'updater_by']);
+        return $this->hasOne(User::className(), ['user_id' => 'updater_by']);
     }
 
     /**

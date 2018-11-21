@@ -7,7 +7,7 @@ use Yii;
 class Chat extends \yii\bootstrap\Widget
 {
     public $port = 8080;
-    public $host = 'www.server.lan';
+    public $host = 'www.ilodki.ln';
     
     public function run()
     {
