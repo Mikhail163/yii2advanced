@@ -5,12 +5,12 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Task;
+use common\models\User;
 
 /**
- * TaskSearch represents the model behind the search form of `common\models\Task`.
+ * UserSearch represents the model behind the search form of `app\models\User`.
  */
-class TaskSearch extends Task
+class UserSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class TaskSearch extends Task
     public function rules()
     {
         return [
-            [['task_id', 'estimation', 'project_id', 'executor_id', 'started_at', 'completed_at', 'creator_by', 'updater_by', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at', 'creator_id', 'updater_id'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'name', 'avatar'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class TaskSearch extends Task
      */
     public function search($params)
     {
-        $query = Task::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -59,20 +59,21 @@ class TaskSearch extends Task
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'task_id' => $this->task_id,
-            'estimation' => $this->estimation,
-            'project_id' => $this->project_id,
-            'executor_id' => $this->executor_id,
-            'started_at' => $this->started_at,
-            'completed_at' => $this->completed_at,
-            'creator_by' => $this->creator_by,
-            'updater_by' => $this->updater_by,
+            'id' => $this->id,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'creator_id' => $this->creator_id,
+            'updater_id' => $this->updater_id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'avatar', $this->avatar]);
 
         return $dataProvider;
     }
