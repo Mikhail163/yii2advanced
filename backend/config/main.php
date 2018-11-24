@@ -12,6 +12,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+	'layout' => 'admin-lte/main',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
