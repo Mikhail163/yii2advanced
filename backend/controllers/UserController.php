@@ -85,8 +85,11 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->setScenario(User::SCENARIO_UPDATE);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            var_dump($model);
+            exit();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
