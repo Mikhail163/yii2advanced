@@ -10,7 +10,7 @@ use Yii;
  * @property int $project_id
  * @property string $title
  * @property string $description
- * @property boolean $active
+ * @property int $active
  * @property int $creator_by
  * @property int $updater_by
  * @property int $created_at
@@ -19,6 +19,7 @@ use Yii;
  * @property User $creatorBy
  * @property User $updaterBy
  * @property ProjectUser[] $projectUsers
+ * @property Task[] $tasks
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -46,8 +47,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'creator_by'], 'required'],
             [['description'], 'string'],
-        	[['active'], 'boolean', 'default', 'value'=> self::STATUS_DEACTIVE],
-            [['creator_by', 'updater_by', 'created_at', 'updated_at'], 'integer'],
+            [['active', 'creator_by', 'updater_by', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['creator_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_by' => 'id']],
             [['updater_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updater_by' => 'id']],
@@ -63,7 +63,7 @@ class Project extends \yii\db\ActiveRecord
             'project_id' => 'Project ID',
             'title' => 'Title',
             'description' => 'Description',
-        	'active' => 'Active',
+            'active' => 'Active',
             'creator_by' => 'Creator By',
             'updater_by' => 'Updater By',
             'created_at' => 'Created At',
@@ -93,6 +93,14 @@ class Project extends \yii\db\ActiveRecord
     public function getProjectUsers()
     {
         return $this->hasMany(ProjectUser::className(), ['project_id' => 'project_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTasks()
+    {
+        return $this->hasMany(Task::className(), ['project_id' => 'project_id']);
     }
 
     /**

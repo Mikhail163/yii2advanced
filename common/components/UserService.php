@@ -14,8 +14,8 @@ class CreateEvent extends  Event
 
 class UserService extends Component
 {
-	const EVENT_LOGIN = 'login';
-	const EVENT_CREATE = 'create';
+	const EVENT_LOGIN = 'userServiceLogin';
+	const EVENT_CREATE = 'userServiceCreate';
 	
 	public function create(User $model)
 	{
