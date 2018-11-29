@@ -10,6 +10,7 @@ use Yii;
  * @property int $project_id
  * @property string $title
  * @property string $description
+ * @property boolean $active
  * @property int $creator_by
  * @property int $updater_by
  * @property int $created_at
@@ -37,6 +38,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'creator_by'], 'required'],
             [['description'], 'string'],
+        	[['active'], 'boolean'],
             [['creator_by', 'updater_by', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['creator_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_by' => 'id']],
@@ -53,6 +55,7 @@ class Project extends \yii\db\ActiveRecord
             'project_id' => 'Project ID',
             'title' => 'Title',
             'description' => 'Description',
+        	'active' => 'Active',
             'creator_by' => 'Creator By',
             'updater_by' => 'Updater By',
             'created_at' => 'Created At',

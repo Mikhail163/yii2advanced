@@ -137,7 +137,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProjects()
+    public function getProjectsCreatorBy()
     {
         return $this->hasMany(Project::className(), ['creator_by' => 'id']);
     }
@@ -145,7 +145,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProjects0()
+    public function getProjectsUpdaterBy()
     {
         return $this->hasMany(Project::className(), ['updater_by' => 'id']);
     }
@@ -161,7 +161,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getTasksCreatorBy()
     {
         return $this->hasMany(Task::className(), ['creator_by' => 'id']);
     }
@@ -169,7 +169,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks0()
+    public function getTasksUpdaterBy()
     {
         return $this->hasMany(Task::className(), ['updater_by' => 'id']);
     }
