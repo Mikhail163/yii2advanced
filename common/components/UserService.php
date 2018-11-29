@@ -6,7 +6,7 @@ use common\models\User;
 use yii\base\Component;
 use yii\base\Event;
 
-class CreareEvent extends  Event
+class CreateEvent extends  Event
 {
 	/** @var User */
 	public $user;
@@ -19,6 +19,7 @@ class UserService extends Component
 	
 	public function create(User $model)
 	{
+		$model->generateAuthKey();
 		if ($result = $model->save()) {
 			$event = new CreateEvent();
 			$event->user = $model;
