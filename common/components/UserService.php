@@ -30,7 +30,7 @@ class UserService extends Component
 	}
 	
 	public function login(User $model, $remember) {
-		if ($result = Yii::$app->user->login($model, $remember)) {
+		if ($result = \Yii::$app->user->login($model, $remember)) {
 			$event = new CreateEvent();
 			$event->user = $model;
 			$this->trigger(self::EVENT_LOGIN, $event);

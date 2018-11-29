@@ -19,6 +19,9 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+        	'on '.\yii\web\User::EVENT_AFTER_LOGIN => function(\yii\web\UserEvent $e) {
+        		return Yii::info('login user='.$e->identity->username, 'auth');
+        	}
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
@@ -31,6 +34,15 @@ return [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+            	[
+            		'class' => 'yii\log\FileTarget',
+            		'logFile' => '@runtime/logs/auts.log',
+            		'levels' => ['info'],
+            		'categories' => ['auth'],
+            		'logVars' => [],
+            		'maxFileSize' => 1024 * 100,
+            		'maxLogFiles' => 5,
+            	],
             ],
         ],
         'errorHandler' => [

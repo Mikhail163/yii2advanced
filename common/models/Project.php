@@ -22,6 +22,14 @@ use Yii;
  */
 class Project extends \yii\db\ActiveRecord
 {
+	const STATUS_DEACTIVE = false;
+	const STATUS_ACTIVE = true;
+	const STATUSES = [
+			self::STATUS_DEACTIVE, self::STATUS_ACTIVE
+	];
+	const STATUS_LABELS= [
+			self::STATUS_DEACTIVE => 'Не активен', self::STATUS_ACTIVE => 'Активен'
+	]; 
     /**
      * {@inheritdoc}
      */
@@ -38,7 +46,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'creator_by'], 'required'],
             [['description'], 'string'],
-        	[['active'], 'boolean'],
+        	[['active'], 'boolean', 'default', 'value'=> self::STATUS_DEACTIVE],
             [['creator_by', 'updater_by', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['creator_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_by' => 'id']],

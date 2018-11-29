@@ -10,6 +10,9 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+    	'userService' => [
+    		'class' => \common\components\UserService::class,
+    	],
     ],
 	
 ];
