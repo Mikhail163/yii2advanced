@@ -34,5 +34,7 @@ class UserService extends Component
 			$event->user = $model;
 			$this->trigger(self::EVENT_LOGIN, $event);
 		}
+		
+		return $result;
 	}
 }
