@@ -29,7 +29,8 @@ class UserService extends Component
 		return $result;
 	}
 	
-	public function login(User $model, $remember) {
+	public function login(User $model, $remember) 
+	{
 		if ($result = \Yii::$app->user->login($model, $remember)) {
 			$event = new CreateEvent();
 			$event->user = $model;
