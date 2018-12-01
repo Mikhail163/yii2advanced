@@ -3,6 +3,9 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 
 /**
  * This is the model class for table "project".
@@ -23,14 +26,42 @@ use Yii;
  */
 class Project extends \yii\db\ActiveRecord
 {
-	const STATUS_DEACTIVE = false;
-	const STATUS_ACTIVE = true;
+	/*
+	 * $updated_by - какаето волшебная переменная
+	 *               без нее yii2 ругается при совершении update
+	 *               нужна только для того, чтоб не было ошибок
+	 *               настоящая переменная назыается $updater_by
+	 */
+	public $updated_by = 0;
+	const RELATION_PROJECT_USERS = 'projectUsers';
+	const STATUS_DEACTIVE = 0;
+	const STATUS_ACTIVE = 1;
+	
 	const STATUSES = [
 			self::STATUS_DEACTIVE, self::STATUS_ACTIVE
 	];
 	const STATUS_LABELS= [
 			self::STATUS_DEACTIVE => 'Не активен', self::STATUS_ACTIVE => 'Активен'
 	]; 
+	
+	
+	public function behaviors()
+	{
+		return [
+				TimestampBehavior::class,
+				[
+						'class' => BlameableBehavior::className(),
+						'createdByAttribute' => 'creator_by',
+						'updatedByAttribute' => 'updater_by',
+				],
+				'saveRelations' => [
+					'class' => SaveRelationsBehavior::class,
+					'relations' => [
+						self::RELATION_PROJECT_USERS,
+					],
+				]
+			];
+	}
     /**
      * {@inheritdoc}
      */

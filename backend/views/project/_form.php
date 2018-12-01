@@ -16,15 +16,39 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'active')->dropDownList(\common\models\Project::STATUS_LABELS) ?>
 
-    <?= $form->field($model, 'creator_by')->textInput() ?>
-
-    <?= $form->field($model, 'updater_by')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= Yii::$app->controller->action->id=='update' ? 
+    	(
+    		$form->field($model, \common\models\Project::RELATION_PROJECT_USERS)
+    			->widget(\unclead\multipleinput\MultipleInput::className(), 
+    				[
+    					'id' => 'project-users-widget',
+    					'max' => 10,
+    					'min' => 0,
+    					'addButtonPosition' => \unclead\multipleinput\MultipleInput::POS_HEADER,
+    					'columns' => 
+    					[
+	    					[
+	    						'name' => 'project_id',
+	    						'type' => 'hiddenInput',
+	    						'defaultValue' => $model->project_id,
+	    					],
+	    					[
+	    						'name' => 'user_id',
+	    						'type' => 'dropDownList',
+	    						'title' => 'Пользователь',
+	    						'items' => \common\models\User::find()->select('username')->indexBy('id')->column(),
+	    					],
+	    					[
+	    						'name' => 'role',
+	    						'type' => 'dropDownList',
+	    						'title' => 'Роль',
+	    						'items' => \common\models\ProjectUser::ROLE_LABELS
+	    					],
+	    				],
+	    			])
+    	):''?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

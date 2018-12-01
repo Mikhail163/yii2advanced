@@ -29,9 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'project_id',
             'title',
             'description:ntext',
-            'active',
+        	[
+        		'attribute' => 'active',
+        		'filter' => \common\models\Project::STATUS_LABELS,
+        		'value' => function (\common\models\Project $model) {
+        			return \common\models\Project::STATUS_LABELS[$model->active];
+    			}
+    		],
             'creator_by',
-            //'updater_by',
+            'updater_by',
             //'created_at',
             //'updated_at',
 

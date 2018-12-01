@@ -8,7 +8,6 @@ use common\models\search\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 /**
  * ProjectController implements the CRUD actions for Project model.
  */
@@ -66,13 +65,35 @@ class ProjectController extends Controller
     {
         $model = new Project();
 
+
+        $model->creator_by = Yii::$app->userService->getId();
+        //$model->updater_by = Yii::$app->userService->getId();
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->project_id]);
         }
 
+        
+        print_r($model->errors);
+        //exit();
+        
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+    
+    private function loadModel(Project $model)
+    {
+    	$data = Yii::$app->request->post($model->formName());
+    	$projectUsers = $data[Project::RELATION_PROJECT_USERS] ?? null;
+    	
+    	
+    	
+    	if ($projectUsers !== null) {
+    		$model->projectUsers = $projectUsers === '' ? [] : $projectUsers;
+    	}
+    	
+    	return $model->load(Yii::$app->request->post());
     }
 
     /**
@@ -86,7 +107,13 @@ class ProjectController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //$projectUsers = $model->getUsersData();
+        
+        //$model->updater_by = Yii::$app->userService->getId();	
+        
+        //print_r($model);exit();
+        
+        if ($this->loadModel($model) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->project_id]);
         }
 

@@ -39,4 +39,19 @@ class UserService extends Component
 		
 		return $result;
 	}
+	
+	public function getUsername()
+	{
+		return \Yii::$app->user->identity->username;
+	}
+	
+	public function getName()
+	{
+		return \Yii::$app->user->identity->name;
+	}
+	
+	public function getId() 
+	{
+		return \Yii::$app->user->id;
+	}
 }

@@ -1,46 +1,9 @@
 <?php
-
-use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\TaskSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Tasks';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="task-index">
+<h1>task/index</h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'task_id',
-            'title',
-            'description',
-            'estimation',
-            'project_id',
-            //'executor_id',
-            //'started_at',
-            //'completed_at',
-            //'creator_by',
-            //'updater_by',
-            //'created_at',
-            //'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
-</div>
+<p>
+    You may change the content of this page by modifying
+    the file <code><?= __FILE__; ?></code>.
+</p>
