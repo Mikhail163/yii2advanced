@@ -11,7 +11,14 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     	'userService' => [
-    		'class' => \common\components\UserService::class,
+    		'class' => \common\services\UserService::class,
+    	],
+    	'projectService' => [
+    		'class' => \common\services\ProjectService::class,
+    		'on '.common\services\ProjectService::EVENT_ASSIGN_ROLE => 
+    			function (\common\services\AssignRoleEvent $event) {
+    				\yii\helpers\VarDumper::dump($event->dump(), 5, true);
+    			}
     	],
     ],
 	

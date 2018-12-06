@@ -48,13 +48,13 @@ return [
             'errorAction' => 'site/error',
         ],
     	'userService' => [
-    		'on '.\common\components\UserService::EVENT_CREATE => function (
-    			\common\components\CreateEvent $model)
+    		'on '.\common\services\UserService::EVENT_CREATE => function (
+    			\common\services\CreateEvent $model)
     		{
     			echo $model->user->username;
     		},
-    		'on '.\common\components\UserService::EVENT_LOGIN => function (
-    			\common\components\CreateEvent $model)
+    		'on '.\common\services\UserService::EVENT_LOGIN => function (
+    				\common\services\CreateEvent $model)
     		{
     			return Yii::info("{$model->user->username} login", 'auth');
     		},
