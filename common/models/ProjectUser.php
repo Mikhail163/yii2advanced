@@ -17,9 +17,9 @@ use Yii;
  */
 class ProjectUser extends \yii\db\ActiveRecord
 {
-	const ROLE_DEVELOPER = 0;
-	const ROLE_MANAGER = 1;
-	const ROLE_TESTER = 2;
+	const ROLE_DEVELOPER = 1;
+	const ROLE_MANAGER = 2;
+	const ROLE_TESTER = 3;
 	
 	const ROLES = [
 			self::ROLE_DEVELOPER, 
