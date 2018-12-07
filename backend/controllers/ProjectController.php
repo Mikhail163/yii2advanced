@@ -9,6 +9,7 @@ use common\models\search\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 /**
  * ProjectController implements the CRUD actions for Project model.
  */
@@ -26,6 +27,16 @@ class ProjectController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+        	'access' => [
+        		'class' => AccessControl::className(),
+        		//'only' => ['logout', 'signup'],
+        		'rules' => [
+        			[
+        				'allow' => true,
+        				'roles' => ['@'],
+        			],
+        		],
+        	],
         ];
     }
 

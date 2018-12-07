@@ -45,6 +45,16 @@ class LoginForm extends Model
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }
+            
+            if (
+            	$user 
+            	&& isset(Yii::$app->params['admins'])
+            	&& !in_array(
+            			$user->id,
+            			Yii::$app->params['admins']) 
+            ) {
+            	$this->addError($attribute, 'Access denied.');
+            }
         }
     }
 
@@ -55,13 +65,12 @@ class LoginForm extends Model
      */
     public function login()
     {
-        if ($this->validate()) {
-        	$remember = $this->rememberMe ? 3600 * 24 * 30 : 0;
-        	return Yii::$app->userService->login($this->getUser(), $remember);
-        	//return Yii::$app->user->login($this->getUser(), $remember);
+    	if ($this->validate()) {
+    		$remember = $this->rememberMe ? 3600 * 24 * 30 : 0;
+	        return Yii::$app->userService->login($this->getUser(), $remember);
         }
         
-        return false;
+        return false; 
     }
 
     /**

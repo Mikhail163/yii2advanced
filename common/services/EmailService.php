@@ -12,7 +12,7 @@ use yii\base\Component;
 
 class EmailService extends Component
 {
-	public function send($viewHTML, $viewText, $data, $email) {
+	public function send($viewHTML, $viewText, $data, $email, $subject) {
 		
 		\Yii::$app
 			->mailer
@@ -21,7 +21,7 @@ class EmailService extends Component
 				)
 				->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
 				->setTo($email)
-				->setSubject('Password reset for ' . \Yii::$app->name)
+				->setSubject($subject)
 				->send();
 	}
 

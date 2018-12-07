@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\User;
-use common\models\search\UserSearch;
+use common\models\Task;
+use common\models\search\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * TaskController implements the CRUD actions for Task model.
  */
-class UserController extends Controller
+class TaskController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,26 +26,16 @@ class UserController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-        	'access' => [
-        		'class' => AccessControl::className(),
-        		//'only' => ['logout', 'signup'],
-        		'rules' => [
-        			[
-        				'allow' => true,
-        				'roles' => ['@'],
-        			],
-        		],
-        	],
         ];
     }
 
     /**
-     * Lists all User models.
+     * Lists all Task models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -56,7 +45,7 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Task model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,17 +58,16 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Task model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new Task();
 
-        
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->userService->create($model)) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->task_id]);
         }
 
         return $this->render('create', [
@@ -88,7 +76,7 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Task model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,34 +85,18 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->setScenario(User::SCENARIO_UPDATE);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->task_id]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
-    
-    public function actionProfile()
-    {
-    	$id = Yii::$app->user->id;
-    	$model = $this->findModel($id);
-    	$model->setScenario(User::SCENARIO_UPDATE);
-    	
-    	if ($model->load(Yii::$app->request->post()) && $model->save()) {
-    		return $this->redirect(['view', 'id' => $model->id]);
-    	}
-    	
-    	return $this->render('update', [
-    			'model' => $model,
-    	]);
-    }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Task model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -138,15 +110,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Task model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Task the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Task::findOne($id)) !== null) {
             return $model;
         }
 

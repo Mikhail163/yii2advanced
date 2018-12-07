@@ -67,14 +67,17 @@ return [
           ],
          ],
         ],*/
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+            	'<controler:[\w-]+>s' => '<controler>/index',
+            	'<controler:[\w-]+>/<id:\d+>' => '<controler>/view',
+            	'<controler:[\w-]+>/<action:[\w-]+>/<id:\d+>' => '<controler>/<action>',
             ],
         ],
-        */
+        
     ],
     'params' => $params,
 ];
