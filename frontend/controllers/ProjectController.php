@@ -3,18 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Task;
-use common\models\search\TaskSearch;
+use common\models\Project;
+use common\models\search\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-
 
 /**
- * TaskController implements the CRUD actions for Task model.
+ * ProjectController implements the CRUD actions for Project model.
  */
-class TaskController extends Controller
+class ProjectController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,15 +20,6 @@ class TaskController extends Controller
     public function behaviors()
     {
         return [
-        	'access' => [
-        		'class' => AccessControl::className(),
-        		'rules' => [
-        			[
-        				'allow' => true,
-        				'roles' => ['@'],
-        			],
-        		],
-        	],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,14 +30,14 @@ class TaskController extends Controller
     }
 
     /**
-     * Lists all Task models.
+     * Lists all Project models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TaskSearch();
+        $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		
         $query = $dataProvider->query;
         $query->byUser(Yii::$app->user->id);
         
@@ -59,7 +48,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Displays a single Task model.
+     * Displays a single Project model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -72,16 +61,16 @@ class TaskController extends Controller
     }
 
     /**
-     * Creates a new Task model.
+     * Creates a new Project model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Task();
+        $model = new Project();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->task_id]);
+            return $this->redirect(['view', 'id' => $model->project_id]);
         }
 
         return $this->render('create', [
@@ -90,7 +79,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Updates an existing Task model.
+     * Updates an existing Project model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -101,7 +90,7 @@ class TaskController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->task_id]);
+            return $this->redirect(['view', 'id' => $model->project_id]);
         }
 
         return $this->render('update', [
@@ -110,7 +99,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Deletes an existing Task model.
+     * Deletes an existing Project model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,15 +113,15 @@ class TaskController extends Controller
     }
 
     /**
-     * Finds the Task model based on its primary key value.
+     * Finds the Project model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Task the loaded model
+     * @return Project the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Task::findOne($id)) !== null) {
+        if (($model = Project::findOne($id)) !== null) {
             return $model;
         }
 

@@ -48,5 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updater_id',
         ],
     ]) ?>
+    
+    <?php echo \yii2mod\comments\widgets\Comment::widget([
+    	'model' => $model,
+    	//'entityIdAttribute' => 'project_id',
+]); ?>
 
 </div>

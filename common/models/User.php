@@ -308,4 +308,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
     	$this->password_reset_token = null;
     }
+    
+    public function getAvatar()
+    {
+    	return $this->getThumbUploadUrl('avatar', \common\models\User::AVATAR_ICO);
+    }
+    
+    public function getUsername()
+    {
+    	return $this->username.' #'.$this->id;
+    }
 }

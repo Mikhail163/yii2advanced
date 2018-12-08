@@ -6,7 +6,21 @@ return [
     ],
 	'language' => 'ru',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+	'modules' => [
+		'comment' => [
+			'class' => 'yii2mod\comments\Module',
+		],
+	],
     'components' => [
+    	'i18n' => [
+    			'translations' => [
+    				'yii2mod.comments' => [
+    				'class' => 'yii\i18n\PhpMessageSource',
+    				'basePath' => '@yii2mod/comments/messages',
+    			],
+    			// ...
+    		],
+    	],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
