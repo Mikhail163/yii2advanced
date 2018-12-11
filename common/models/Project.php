@@ -23,6 +23,7 @@ use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
  * @property User $updaterBy
  * @property ProjectUser[] $projectUsers
  * @property Task[] $tasks
+ * @property $project Project
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -33,6 +34,8 @@ class Project extends \yii\db\ActiveRecord
 	 *               настоящая переменная назыается $updater_by
 	 */
 	public $updated_by = 0;
+	public $creator;
+	public $updater;
 	const RELATION_PROJECT_USERS = 'projectUsers';
 	const STATUS_DEACTIVE = 0;
 	const STATUS_ACTIVE = 1;
@@ -125,7 +128,8 @@ class Project extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ProjectUser::className(), ['project_id' => 'project_id']);
     }
-
+    
+    
     /**
      * @return \yii\db\ActiveQuery
      */

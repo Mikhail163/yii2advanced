@@ -61,7 +61,7 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'project_id' => $this->project_id,
             'active' => $this->active,
-            'creator_by' => $this->creator_by,
+        	'creator_by' => $this->creator_by,
             'updater_by' => $this->updater_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

@@ -72,13 +72,6 @@ class Task extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProject()
-    {
-        return $this->hasOne(Project::className(), ['project_id' => 'project_id']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -88,6 +81,16 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['user_id' => 'creator_by']);
     }
 
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProject()
+    {
+    	return $this->hasOne(Project::className(), ['id' => 'project_id']);
+    }
+    
+    
     /**
      * @return \yii\db\ActiveQuery
      */

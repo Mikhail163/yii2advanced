@@ -70,6 +70,22 @@ class TaskController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    
+    public function actionTake($id)
+    {
+    	$model = $this->findModel($id);
+    	$model->executor_id = Yii::$app->user->id;
+    	$model->started_at = time();
+    	
+    	if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    		Yii::$app->session->setFlash('success', 'Успешно взяли');
+    		return $this->redirect(['view', 'id' => $model->id]);
+    	}
+    	
+    	return $this->render('update', [
+    			'model' => $model,
+    	]);
+    }
 
     /**
      * Creates a new Task model.
